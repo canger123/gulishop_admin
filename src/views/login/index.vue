@@ -130,7 +130,7 @@ const handleLogin = async () => {
 	loading.value = true;
 	const { username, password } = loginForm.value;
 	try {
-		await userInfoStore.login(username, password);
+		await userInfoStore.login({ username, password });
 		router.push({ path: redirect.value || '/' });
 	} finally {
 		loading.value = false;
