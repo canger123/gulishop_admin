@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia';
 import userLoginApi from '@/api/userInfo';
+
+import { staticRoutes } from '@/router/routes';
 import type { LoginParamsData, userInfoStoreData } from '@/api/interface/userInfo';
 
 export const useUserInfoStore = defineStore('useInfo', {
@@ -13,6 +15,7 @@ export const useUserInfoStore = defineStore('useInfo', {
 				name: '',
 				avatar: '',
 			},
+			menuRoutes: staticRoutes,
 		};
 	},
 	actions: {

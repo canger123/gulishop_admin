@@ -52,7 +52,7 @@ const toggleSideBar = () => {
 };
 
 const logout = async () => {
-	await userInfoStore.reset();
+	await userInfoStore.logout();
 	router.push(`/login?redirect=${route.fullPath}`);
 };
 </script>

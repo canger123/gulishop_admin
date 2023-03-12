@@ -1,3 +1,5 @@
+import type { RouteRecordRaw } from 'vue-router';
+
 // 登录所需数据接口
 export interface LoginParamsData {
 	username: string;
@@ -22,4 +24,5 @@ export interface UserInfoData {
 export interface userInfoStoreData {
 	token: string | null;
 	userInfo: UserInfoData;
+	menuRoutes: RouteRecordRaw[];
 }
