@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import userLoginApi from '@/api/userInfo';
 
 import { staticRoutes } from '@/router/routes';
-import type { LoginParamsData, userInfoStoreData } from '@/api/interface/userInfo';
+import type { LoginParamsData, userInfoStoreData } from '@/api/model/userInfo';
 
 export const useUserInfoStore = defineStore('useInfo', {
 	state(): userInfoStoreData {

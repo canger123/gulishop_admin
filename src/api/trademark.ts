@@ -1,5 +1,5 @@
 import request from '@/utils/request';
-import type { TrademarkData, TrademarkListData } from './interface/trademark';
+import type { TrademarkData, TrademarkListData } from './model/trademark';
 
 export default {
 	// 获取trademark列表

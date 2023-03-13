@@ -1,5 +1,5 @@
 import request from '@/utils/request';
-import type { LoginParamsData, TokenData, UserInfoData } from '@/api/interface/userInfo';
+import type { LoginParamsData, TokenData, UserInfoData } from '@/api/model/userInfo';
 
 export default {
 	/**

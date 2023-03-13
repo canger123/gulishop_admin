@@ -1,66 +1,68 @@
 <template>
-	<el-card class="box-card" :body-style="{ padding: '20px' }" shadow="always">
-		<template #header>
-			<div class="card-header">
-				<el-button type="primary" icon="ele-Plus" @click="showAddDiglog">添加</el-button>
-			</div>
-		</template>
-
-		<el-table :data="trademarkList" border stripe>
-			<el-table-column label="序号" width="80" align="center" type="index"></el-table-column>
-			<el-table-column label="品牌名称" prop="tmName"></el-table-column>
-			<el-table-column label="品牌LOGO">
-				<template v-slot="{ row, $index }">
-					<img :src="row.logoUrl" alt="" style="width: 100px; height: 60px" />
-				</template>
-			</el-table-column>
-			<el-table-column label="操作">
-				<template v-slot="{ row, $index }">
-					<el-button type="warning" icon="ele-Edit" size="small" @click="showUpdateDialog(row)">修改</el-button>
-					<el-button type="danger" icon="ele-Delete" size="small" @click="delTrademark(row)">删除</el-button>
-				</template>
-			</el-table-column>
-		</el-table>
-
-		<el-dialog v-model="dialogFormVisible" :title="`${tmForm.id ? '修改品牌' : '添加品牌'}`">
-			<el-form :rules="rules" :model="tmForm" ref="tmFormRef">
-				<el-form-item label="品牌名字" prop="tmName">
-					<el-input autocomplete="off" v-model="tmForm.tmName" />
-				</el-form-item>
-				<el-form-item label="上传图片" prop="logoUrl">
-					<el-upload
-						class="avatar-uploader"
-						action="/app-dev/admin/product/fileUpload"
-						:show-file-list="false"
-						:on-success="handleAvatarSuccess"
-						:before-upload="beforeAvatarUpload">
-						<img v-if="tmForm.logoUrl" :src="tmForm.logoUrl" class="avatar" />
-						<el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
-
-						<template #tip>
-							<div class="el-upload__tip">请上传jpg格式的图片且大小不超过2MB</div>
-						</template>
-					</el-upload>
-				</el-form-item>
-			</el-form>
-			<template #footer>
-				<span class="dialog-footer">
-					<el-button @click="dialogFormVisible = false">取消</el-button>
-					<el-button type="primary" @click="addOrUpdateTrademark"> 确认 </el-button>
-				</span>
+	<div>
+		<el-card class="box-card" :body-style="{ padding: '20px' }" shadow="always">
+			<template #header>
+				<div class="card-header">
+					<el-button type="primary" icon="ele-Plus" @click="showAddDiglog">添加</el-button>
+				</div>
 			</template>
-		</el-dialog>
 
-		<el-pagination
-			v-model:current-page="page"
-			v-model:page-size="limit"
-			:page-sizes="[3, 5, 7, 10]"
-			layout=" prev, pager, next, jumper, -> , sizes , total ,"
-			:total="total"
-			:pager-count="9"
-			@size-change="handleSizeChange"
-			@current-change="getTrademarkList" />
-	</el-card>
+			<el-table :data="trademarkList" border stripe>
+				<el-table-column label="序号" width="80" align="center" type="index"></el-table-column>
+				<el-table-column label="品牌名称" prop="tmName"></el-table-column>
+				<el-table-column label="品牌LOGO">
+					<template v-slot="{ row, $index }">
+						<img :src="row.logoUrl" alt="" style="width: 100px; height: 60px" />
+					</template>
+				</el-table-column>
+				<el-table-column label="操作">
+					<template v-slot="{ row, $index }">
+						<el-button type="warning" icon="ele-Edit" size="small" @click="showUpdateDialog(row)">修改</el-button>
+						<el-button type="danger" icon="ele-Delete" size="small" @click="delTrademark(row)">删除</el-button>
+					</template>
+				</el-table-column>
+			</el-table>
+
+			<el-dialog v-model="dialogFormVisible" :title="`${tmForm.id ? '修改品牌' : '添加品牌'}`">
+				<el-form :rules="rules" :model="tmForm" ref="tmFormRef">
+					<el-form-item label="品牌名字" prop="tmName">
+						<el-input autocomplete="off" v-model="tmForm.tmName" />
+					</el-form-item>
+					<el-form-item label="上传图片" prop="logoUrl">
+						<el-upload
+							class="avatar-uploader"
+							action="/app-dev/admin/product/fileUpload"
+							:show-file-list="false"
+							:on-success="handleAvatarSuccess"
+							:before-upload="beforeAvatarUpload">
+							<img v-if="tmForm.logoUrl" :src="tmForm.logoUrl" class="avatar" />
+							<el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
+
+							<template #tip>
+								<div class="el-upload__tip">请上传jpg格式的图片且大小不超过2MB</div>
+							</template>
+						</el-upload>
+					</el-form-item>
+				</el-form>
+				<template #footer>
+					<span class="dialog-footer">
+						<el-button @click="dialogFormVisible = false">取消</el-button>
+						<el-button type="primary" @click="addOrUpdateTrademark"> 确认 </el-button>
+					</span>
+				</template>
+			</el-dialog>
+
+			<el-pagination
+				v-model:current-page="page"
+				v-model:page-size="limit"
+				:page-sizes="[3, 5, 7, 10]"
+				layout=" prev, pager, next, jumper, -> , sizes , total ,"
+				:total="total"
+				:pager-count="9"
+				@size-change="handleSizeChange"
+				@current-change="getTrademarkList" />
+		</el-card>
+	</div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
@@ -71,7 +73,7 @@ export default defineComponent({
 <script lang="ts" setup>
 import { ref, onMounted, nextTick } from 'vue';
 import TrademarkApi from '@/api/trademark';
-import type { TrademarkData } from '@/api/interface/trademark';
+import type { TrademarkData } from '@/api/model/trademark';
 import { Plus } from '@element-plus/icons-vue';
 import { ElMessage, ElMessageBox, type FormRules, type UploadProps } from 'element-plus';
 
