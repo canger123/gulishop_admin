@@ -1,5 +1,5 @@
 <template>
-	<el-form :inline="true" class="demo-form-inline" :disabled="disabled11">
+	<el-form :inline="true" class="demo-form-inline" :disabled="disabled">
 		<el-form-item label="一级分类">
 			<el-select placeholder="请选择" v-model="category1Id" @change="getCategory1Id">
 				<el-option
@@ -43,7 +43,7 @@ import { storeToRefs } from 'pinia';
 //获取到整个分类store对象
 const categoryStore = useCategoryStore();
 
-const abc = defineProps<{ disabled11: boolean }>();
+const abc = defineProps<{ disabled: boolean }>();
 
 const { category1List, category2List, category3List, category1Id, category2Id, category3Id } =
 	storeToRefs(categoryStore);

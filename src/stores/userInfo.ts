@@ -1,8 +1,36 @@
 import { defineStore } from 'pinia';
 import userLoginApi from '@/api/userInfo';
 
-import { staticRoutes } from '@/router/routes';
+import { staticRoutes, allAsyncRoutes, anyRoute } from '@/router/routes';
 import type { LoginParamsData, userInfoStoreData } from '@/api/model/userInfo';
+import type { RouteRecordRaw } from 'vue-router';
+import router from '@/router';
+
+function filterAsyncRoutes(allAsyncRoutes: RouteRecordRaw[], routeNames: string[]) {
+	let res = allAsyncRoutes.filter((item) => {
+		if (routeNames.indexOf(item.name as string)) {
+			if (item.children && item.children.length) {
+				filterAsyncRoutes(item.children, routeNames);
+			}
+			return true;
+		}
+	});
+	return res;
+}
+
+function addRoutes(routes: RouteRecordRaw[]) {
+	routes.forEach((item) => {
+		router.addRoute(item);
+	});
+}
+
+function resetRouter() {
+	let routes = router.getRoutes();
+	routes.forEach((item) => {
+		router.removeRoute(item.name as string);
+	});
+	addRoutes(staticRoutes);
+}
 
 export const useUserInfoStore = defineStore('useInfo', {
 	state(): userInfoStoreData {
@@ -36,6 +64,9 @@ export const useUserInfoStore = defineStore('useInfo', {
 			try {
 				const res = await userLoginApi.reqUserInfo();
 				this.userInfo = res;
+				let userAsyncRoutes = filterAsyncRoutes(allAsyncRoutes, res.routes);
+				addRoutes(userAsyncRoutes.concat(anyRoute));
+				this.menuRoutes = staticRoutes.concat(userAsyncRoutes, anyRoute);
 				return 'ok';
 			} catch (error) {
 				return Promise.reject(error);
@@ -47,6 +78,7 @@ export const useUserInfoStore = defineStore('useInfo', {
 			try {
 				await userLoginApi.reqLogout();
 				this.reset();
+				resetRouter();
 				return 'ok';
 			} catch (error) {
 				return Promise.reject(error);

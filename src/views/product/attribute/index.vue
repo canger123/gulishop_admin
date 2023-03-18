@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<el-card shadow="always" :body-style="{ padding: '20px' }">
-			<CategorySelector :disabled11="!isShowAddAttr"></CategorySelector>
+			<CategorySelector :disabled="!isShowAddAttr"></CategorySelector>
 		</el-card>
 		<el-card shadow="always" :body-style="{ padding: '20px' }" style="margin-top: 20px" v-show="isShowAddAttr">
 			<el-button type="primary" :disabled="isShowAddAttrButton" icon="ele-Plus" @click="addAttr">添加属性</el-button>

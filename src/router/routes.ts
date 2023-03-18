@@ -46,7 +46,12 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 			},
 		],
 	},
+];
 
+/**
+ * 定义动态路由
+ */
+export const allAsyncRoutes: Array<RouteRecordRaw> = [
 	{
 		path: '/procdut',
 		component: () => import('@/layout/index.vue'),
@@ -90,19 +95,14 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 			},
 		],
 	},
-
-	/* 匹配任意的路由 必须最后注册 */
-	{
-		path: '/:pathMatch(.*)',
-		name: 'Any',
-		redirect: '/404',
-		meta: {
-			hidden: true,
-		},
-	},
 ];
 
-/**
- * 定义动态路由
- */
-export const allAsyncRoutes: Array<RouteRecordRaw> = [];
+/* 匹配任意的路由 必须最后注册 */
+export const anyRoute = {
+	path: '/:pathMatch(.*)',
+	name: 'Any',
+	redirect: '/404',
+	meta: {
+		hidden: true,
+	},
+};
